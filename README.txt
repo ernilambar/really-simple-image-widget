@@ -1,10 +1,10 @@
 === Really Simple Image Widget ===
 Contributors: rabmalin
-Donate link: http://www.nilambar.net
+Donate link: http://www.nilambar.net/2014/06/really-simple-image-widget-wordpress.html
 Tags: image widget, widget, media, media manager, sidebar, image, photo, picture, simple, image size
 Requires at least: 3.8
-Tested up to: 4.3
-Stable tag: 1.2
+Tested up to: 4.4
+Stable tag: 1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

@@ -5,7 +5,7 @@
  * Description: Easiest way to add image in your sidebar
  * Author: Nilambar Sharma
  * Author URI: http://www.nilambar.net
- * Version: 1.2
+ * Version: 1.3
  * Text Domain: really-simple-image-widget
  */
 

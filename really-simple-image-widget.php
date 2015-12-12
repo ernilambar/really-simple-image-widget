@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // For Upload field.
 require_once( __DIR__ . "/fields/upload/upload.php" );
 
-class Really_Simple_Image_Widget  extends WP_Widget {
+class Really_Simple_Image_Widget extends WP_Widget {
 
     function __construct() {
 

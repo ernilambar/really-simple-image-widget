@@ -1,7 +1,7 @@
 <?php
-function really_simple_image_widget_upload_enqueue($hook) {
+function really_simple_image_widget_upload_enqueue( $hook ) {
 
-  if( 'widgets.php' != $hook )
+  if( 'widgets.php' !== $hook )
       return;
 
   wp_enqueue_media();

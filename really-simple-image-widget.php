@@ -1,29 +1,30 @@
 <?php
-/*
-Plugin Name: Really Simple Image Widget
-Plugin URI: http://wordpress.org/plugins/really-simple-image-widget/
-Description: Easiest way to add image in your sidebar
-Author: Nilambar Sharma
-Author URI: http://www.nilambar.net
-Version: 1.2
-*/
+/**
+ * Plugin Name: Really Simple Image Widget
+ * Plugin URI: http://www.nilambar.net/2014/06/really-simple-image-widget-wordpress.html
+ * Description: Easiest way to add image in your sidebar
+ * Author: Nilambar Sharma
+ * Author URI: http://www.nilambar.net
+ * Version: 1.2
+ * Text Domain: really-simple-image-widget
+ */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
 
-define( 'REALLY_SIMPLE_WIDGET_NAME', 'Really Simple Image Widget' );
-define( 'REALLY_SIMPLE_WIDGET_SLUG', 'really-simple-image-widget' );
-
-// For Upload field
+// For Upload field.
 require_once( __DIR__ . "/fields/upload/upload.php" );
 
 class Really_Simple_Image_Widget  extends WP_Widget {
 
     function __construct() {
 
-        // Load textdomain for translation
+        // Load textdomain for translation.
         load_plugin_textdomain( 'really-simple-image-widget' , false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
-        // Widget Options
+        // Widget Options.
         $opts =array(
           'classname'     => 'really_simple_image_widget',
           'description'   => __( 'Easiest way to add image in your sidebar', 'really-simple-image-widget' )
@@ -113,7 +114,7 @@ class Really_Simple_Image_Widget  extends WP_Widget {
           }
           echo '</div>';
 
-        } //end if : image is there
+        } // End if : image is there.
 
         echo $after_widget;
 
@@ -142,7 +143,7 @@ class Really_Simple_Image_Widget  extends WP_Widget {
     }
 
     function form( $instance ) {
-        //Defaults
+        // Defaults.
         $instance = wp_parse_args( (array) $instance, array(
           'title'                        =>  '',
           'rsiw_image_url'               =>  '',
@@ -244,7 +245,7 @@ class Really_Simple_Image_Widget  extends WP_Widget {
 
 <?php }
 
-} // end class
+} // End class.
 
 /**
   * Register  widget.
@@ -253,7 +254,7 @@ class Really_Simple_Image_Widget  extends WP_Widget {
   */
 function really_simple_image_widget_register() {
 
-  register_widget('Really_Simple_Image_Widget');
+  register_widget( 'Really_Simple_Image_Widget' );
 
 }
-add_action( 'widgets_init', 'really_simple_image_widget_register');
+add_action( 'widgets_init', 'really_simple_image_widget_register' );

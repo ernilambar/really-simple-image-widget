@@ -2,9 +2,9 @@
 Contributors: rabmalin
 Donate link: http://www.nilambar.net/2014/06/really-simple-image-widget-wordpress.html
 Tags: image widget, widget, media, media manager, sidebar, image, photo, picture, simple, image size
-Requires at least: 3.8
-Tested up to: 4.4
-Stable tag: 1.3
+Requires at least: 4.0
+Tested up to: 4.5
+Stable tag: 1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,6 +49,9 @@ Nice, make a post on the [Support Forum](http://wordpress.org/support/plugin/rea
 
 
 == Changelog ==
+
+= 1.4 =
+* Minor bug fixes
 
 = 1.2 =
 * Add width and height field in widget

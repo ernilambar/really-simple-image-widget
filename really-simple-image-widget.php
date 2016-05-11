@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Really Simple Image Widget
- * Plugin URI: http://www.nilambar.net/2014/06/really-simple-image-widget-wordpress.html
+ * Plugin URI: http://nilambar.net/2014/06/really-simple-image-widget-wordpress.html
  * Description: Easiest way to add image in your sidebar
  * Author: Nilambar Sharma
- * Author URI: http://www.nilambar.net
- * Version: 1.3
+ * Author URI: http://nilambar.net
+ * Version: 1.4
  * Text Domain: really-simple-image-widget
  */
 

@@ -6,8 +6,9 @@ class Really_Simple_Image_Widget extends WP_Widget {
 
         // Widget Options.
         $opts =array(
-          'classname'     => 'really_simple_image_widget',
-          'description'   => __( 'Easiest way to add image in your sidebar', 'really-simple-image-widget' )
+          'classname'                   => 'really_simple_image_widget',
+          'description'                 => __( 'Easiest way to add image in your sidebar', 'really-simple-image-widget' ),
+          'customize_selective_refresh' => true,
         );
 
         parent::__construct( 'really-simple-image-widget', __( 'Really Simple Image Widget', 'really-simple-image-widget' ), $opts );
@@ -18,16 +19,16 @@ class Really_Simple_Image_Widget extends WP_Widget {
 
         extract( $args , EXTR_SKIP );
 
-        $title            = apply_filters( 'widget_title', empty( $instance['title'] ) ? '' : $instance['title'], $instance, $this->id_base );
-        $rsiw_image_url     = ! empty( $instance['rsiw_image_url'] ) ? $instance['rsiw_image_url'] : '';
-        $rsiw_image_width   = ! empty( $instance['rsiw_image_width'] ) ? $instance['rsiw_image_width'] : '';
-        $rsiw_image_height  = ! empty( $instance['rsiw_image_height'] ) ? $instance['rsiw_image_height'] : '';
-        $rsiw_link          = ! empty( $instance['rsiw_link'] ) ? $instance['rsiw_link'] : '';
-        $rsiw_alt_text      = ! empty( $instance['rsiw_alt_text'] ) ? $instance['rsiw_alt_text'] : '';
-        $rsiw_open_link     = ! empty( $instance['rsiw_open_link'] ) ? $instance['rsiw_open_link'] : false;
-        $rsiw_image_caption = ! empty( $instance['rsiw_image_caption'] ) ? $instance['rsiw_image_caption'] : '';
-        $rsiw_disable_link_in_title     = ! empty( $instance['rsiw_disable_link_in_title'] ) ? $instance['rsiw_disable_link_in_title'] : false;
-        $rsiw_disable_link_in_caption     = ! empty( $instance['rsiw_disable_link_in_caption'] ) ? $instance['rsiw_disable_link_in_caption'] : false;
+        $title                        = apply_filters( 'widget_title', empty( $instance['title'] ) ? '' : $instance['title'], $instance, $this->id_base );
+        $rsiw_image_url               = ! empty( $instance['rsiw_image_url'] ) ? $instance['rsiw_image_url'] : '';
+        $rsiw_image_width             = ! empty( $instance['rsiw_image_width'] ) ? $instance['rsiw_image_width'] : '';
+        $rsiw_image_height            = ! empty( $instance['rsiw_image_height'] ) ? $instance['rsiw_image_height'] : '';
+        $rsiw_link                    = ! empty( $instance['rsiw_link'] ) ? $instance['rsiw_link'] : '';
+        $rsiw_alt_text                = ! empty( $instance['rsiw_alt_text'] ) ? $instance['rsiw_alt_text'] : '';
+        $rsiw_open_link               = ! empty( $instance['rsiw_open_link'] ) ? $instance['rsiw_open_link'] : false;
+        $rsiw_image_caption           = ! empty( $instance['rsiw_image_caption'] ) ? $instance['rsiw_image_caption'] : '';
+        $rsiw_disable_link_in_title   = ! empty( $instance['rsiw_disable_link_in_title'] ) ? $instance['rsiw_disable_link_in_title'] : false;
+        $rsiw_disable_link_in_caption = ! empty( $instance['rsiw_disable_link_in_caption'] ) ? $instance['rsiw_disable_link_in_caption'] : false;
 
         $instance['link_open'] = '';
         $instance['link_close'] = '';
@@ -103,12 +104,12 @@ class Really_Simple_Image_Widget extends WP_Widget {
     function update( $new_instance, $old_instance ) {
         $instance = $old_instance;
 
-        $instance['title']                        = strip_tags( stripslashes($new_instance['title']) );
-        $instance['rsiw_image_url']               = esc_url( $new_instance['rsiw_image_url'] );
+        $instance['title']                        = sanitize_text_field($new_instance['title']);
+        $instance['rsiw_image_url']               = esc_url_raw( $new_instance['rsiw_image_url'] );
         $instance['rsiw_image_width']             = esc_attr( $new_instance['rsiw_image_width'] );
         $instance['rsiw_image_height']            = esc_attr( $new_instance['rsiw_image_height'] );
-        $instance['rsiw_link']                    = esc_url( $new_instance['rsiw_link'] );
-        $instance['rsiw_alt_text']                = esc_attr( $new_instance['rsiw_alt_text'] );
+        $instance['rsiw_link']                    = esc_url_raw( $new_instance['rsiw_link'] );
+        $instance['rsiw_alt_text']                = sanitize_text_field( $new_instance['rsiw_alt_text'] );
         $instance['rsiw_open_link']               = isset( $new_instance['rsiw_open_link'] );
         $instance['rsiw_disable_link_in_title']   = isset( $new_instance['rsiw_disable_link_in_title'] );
         $instance['rsiw_disable_link_in_caption'] = isset( $new_instance['rsiw_disable_link_in_caption'] );
@@ -116,7 +117,7 @@ class Really_Simple_Image_Widget extends WP_Widget {
           $instance['rsiw_image_caption'] =  $new_instance['rsiw_image_caption'];
         }
         else{
-          $instance['rsiw_image_caption'] = stripslashes( wp_filter_post_kses( addslashes($new_instance['rsiw_image_caption']) ) );
+            $instance['rsiw_image_caption'] = wp_kses_post( $new_instance['rsiw_image_caption'] );
         }
 
         return $instance;
@@ -137,7 +138,7 @@ class Really_Simple_Image_Widget extends WP_Widget {
           'rsiw_disable_link_in_caption' =>  0,
           ) );
 
-        $title                        = htmlspecialchars( $instance['title'] );
+        $title                        = esc_html( $instance['title'] );
         $rsiw_image_url               = esc_url( $instance['rsiw_image_url'] );
         $rsiw_image_width             = esc_attr( $instance['rsiw_image_width'] );
         $rsiw_image_height            = esc_attr( $instance['rsiw_image_height'] );
@@ -148,11 +149,6 @@ class Really_Simple_Image_Widget extends WP_Widget {
         $rsiw_disable_link_in_title   = esc_attr( $instance['rsiw_disable_link_in_title'] );
         $rsiw_disable_link_in_caption = esc_attr( $instance['rsiw_disable_link_in_caption'] );
 ?>
-    <style>
-      .rsiw-preview-wrap{
-        margin-top: 10px;
-      }
-    </style>
     <p>
         <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title', 'really-simple-image-widget' ); ?>:</label>
         <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title ; ?>" />
@@ -173,7 +169,7 @@ class Really_Simple_Image_Widget extends WP_Widget {
           $wrap_style = ' style="display:none;" ';
         }
       ?>
-      <div class="rsiw-preview-wrap" <?php echo $wrap_style; ?>>
+      <div class="rsiw-preview-wrap" <?php echo $wrap_style; ?> style="margin-top: 10px;">
         <img src="<?php echo esc_url( $full_image_url ); ?>" alt="<?php _e('Preview', 'really-simple-image-widget'); ?>" style="max-width: 100%;"  />
       </div><!-- .rsiw-preview-wrap -->
 
@@ -225,4 +221,4 @@ class Really_Simple_Image_Widget extends WP_Widget {
 
 <?php }
 
-} // End class.
+}

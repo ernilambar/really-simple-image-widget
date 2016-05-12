@@ -129,6 +129,7 @@ module.exports = function( grunt ){
 		jshint: {
 			options: grunt.file.readJSON('.jshintrc'),
 			all: [
+				'Gruntfile.js',
 				'js/*.js',
 				'!js/*.min.js'
 			]

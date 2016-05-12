@@ -26,7 +26,7 @@ jQuery(function($){
         // Create the media frame.
         rsiw_file_frame = wp.media.frames.rsiw_file_frame = wp.media({
           button: {
-            text: jQuery( this ).data( 'uploader_button_text' ),
+            text: jQuery( this ).data( 'uploader_button_text' )
           },
           state : 'rsiw-insert-image',
               states : [

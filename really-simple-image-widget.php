@@ -54,11 +54,14 @@ add_action( 'init', 'really_simple_image_widget_init' );
  */
 function really_simple_image_widget_scripts( $hook ) {
 
-  if( 'widgets.php' !== $hook )
-      return;
+  if( 'widgets.php' !== $hook ) {
+	return;
+  }
+
+  wp_enqueue_style( 'really-simple-image-widget-admin', REALLY_SIMPLE_IMAGE_WIDGET_URL . '/css/admin.css', array(), '1.4' );
 
   wp_enqueue_media();
-  wp_enqueue_script( 'really-simple-image-widget-script', REALLY_SIMPLE_IMAGE_WIDGET_URL . '/js/upload.js' , array( 'jquery' ), '1.4' );
+  wp_enqueue_script( 'really-simple-image-widget-admin', REALLY_SIMPLE_IMAGE_WIDGET_URL . '/js/admin.js', array( 'jquery' ), '1.4' );
 
 }
 add_action( 'admin_enqueue_scripts', 'really_simple_image_widget_scripts' );

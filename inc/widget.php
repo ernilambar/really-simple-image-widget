@@ -169,7 +169,7 @@ class Really_Simple_Image_Widget extends WP_Widget {
           $wrap_style = ' style="display:none;" ';
         }
       ?>
-      <div class="rsiw-preview-wrap" <?php echo $wrap_style; ?> style="margin-top: 10px;">
+      <div class="rsiw-preview-wrap" <?php echo $wrap_style; ?>>
         <img src="<?php echo esc_url( $full_image_url ); ?>" alt="<?php _e('Preview', 'really-simple-image-widget'); ?>" style="max-width: 100%;"  />
       </div><!-- .rsiw-preview-wrap -->
 

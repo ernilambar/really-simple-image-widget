@@ -103,12 +103,12 @@ class Really_Simple_Image_Widget extends WP_Widget {
 			if ( ! empty( $rsiw_image_caption ) ) {
 				if ( $rsiw_disable_link_in_caption ) {
 					echo sprintf( '<div class="rsiw-image-caption">%s</div>',
-						$rsiw_image_caption
+						wp_kses_post( $rsiw_image_caption )
 					);
 				} else {
 					echo sprintf( '<div class="rsiw-image-caption">%s%s%s</div>',
 						$instance['link_open'],
-						$rsiw_image_caption,
+						wp_kses_post( $rsiw_image_caption ),
 						$instance['link_close']
 					);
 				}
@@ -131,6 +131,7 @@ class Really_Simple_Image_Widget extends WP_Widget {
 	 * @return array Settings to save or bool false to cancel saving.
 	 */
 	function update( $new_instance, $old_instance ) {
+
 		$instance = $old_instance;
 
 		$instance['title']                        = sanitize_text_field( $new_instance['title'] );
@@ -149,6 +150,7 @@ class Really_Simple_Image_Widget extends WP_Widget {
 		}
 
 		return $instance;
+
 	}
 
 	/**
@@ -173,26 +175,15 @@ class Really_Simple_Image_Widget extends WP_Widget {
 			'rsiw_disable_link_in_title'   => 0,
 			'rsiw_disable_link_in_caption' => 0,
 			) );
-
-		$title                        = esc_html( $instance['title'] );
-		$rsiw_image_url               = esc_url( $instance['rsiw_image_url'] );
-		$rsiw_image_width             = esc_attr( $instance['rsiw_image_width'] );
-		$rsiw_image_height            = esc_attr( $instance['rsiw_image_height'] );
-		$rsiw_link                    = esc_url( $instance['rsiw_link'] );
-		$rsiw_alt_text                = esc_attr( $instance['rsiw_alt_text'] );
-		$rsiw_open_link               = esc_attr( $instance['rsiw_open_link'] );
-		$rsiw_image_caption           = esc_textarea( $instance['rsiw_image_caption'] );
-		$rsiw_disable_link_in_title   = esc_attr( $instance['rsiw_disable_link_in_title'] );
-		$rsiw_disable_link_in_caption = esc_attr( $instance['rsiw_disable_link_in_caption'] );
 		?>
 	    <p>
 	        <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php _e( 'Title', 'really-simple-image-widget' ); ?>:</label>
-	        <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo $title ; ?>" />
+	        <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $instance['title'] ); ?>" />
 	    </p>
 
 	    <div>
 		      <label for="<?php echo esc_attr( $this->get_field_id( 'rsiw_image_url' ) ); ?>"><?php _e( 'Image URL', 'really-simple-image-widget' ); ?></label>:<br />
-		      <input type="text" class="img widefat" name="<?php echo esc_attr( $this->get_field_name( 'rsiw_image_url' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'rsiw_image_url' ) ); ?>" value="<?php echo $rsiw_image_url; ?>" /><br />
+		      <input type="text" class="img widefat" name="<?php echo esc_attr( $this->get_field_name( 'rsiw_image_url' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'rsiw_image_url' ) ); ?>" value="<?php echo esc_url( $instance['rsiw_image_url'] ); ?>" /><br />
 		      <input type="button" class="select-img button button-primary" value="<?php _e( 'Upload', 'really-simple-image-widget' ); ?>" data-uploader_title="<?php _e( 'Select Image', 'really-simple-image-widget' ); ?>" data-uploader_button_text="<?php _e( 'Choose Image', 'really-simple-image-widget' ); ?>" style="margin-top:5px;" />
 
 				<?php
@@ -214,25 +205,25 @@ class Really_Simple_Image_Widget extends WP_Widget {
 	    <p>
 	      <label for="<?php echo esc_attr( $this->get_field_id( 'rsiw_image_width' ) ); ?>"><?php _e( 'Image Width', 'really-simple-image-widget' ); ?>:</label>
 	        <input id="<?php echo esc_attr( $this->get_field_id( 'rsiw_image_width' ) ); ?>"
-	        name="<?php echo esc_attr( $this->get_field_name( 'rsiw_image_width' ) ); ?>" type="text" value="<?php echo $rsiw_image_width; ?>" style="max-width:60px;"/>&nbsp;<em class="small"><?php _e( 'in pixel', 'really-simple-image-widget' ); ?></em>
+	        name="<?php echo esc_attr( $this->get_field_name( 'rsiw_image_width' ) ); ?>" type="text" value="<?php echo esc_attr( $instance['rsiw_image_width'] ); ?>" style="max-width:60px;"/>&nbsp;<em class="small"><?php _e( 'in pixel', 'really-simple-image-widget' ); ?></em>
 	    </p>
 
 	    <p>
 	      <label for="<?php echo esc_attr( $this->get_field_id( 'rsiw_image_height' ) ); ?>"><?php _e( 'Image Height', 'really-simple-image-widget' ); ?>:</label>
 	        <input id="<?php echo esc_attr( $this->get_field_id( 'rsiw_image_height' ) ); ?>"
-	        name="<?php echo esc_attr( $this->get_field_name( 'rsiw_image_height' ) ); ?>" type="text" value="<?php echo $rsiw_image_height; ?>" style="max-width:60px;"/>&nbsp;<em class="small"><?php _e( 'in pixel', 'really-simple-image-widget' ); ?></em>
+	        name="<?php echo esc_attr( $this->get_field_name( 'rsiw_image_height' ) ); ?>" type="text" value="<?php echo esc_attr( $instance['rsiw_image_height'] ); ?>" style="max-width:60px;"/>&nbsp;<em class="small"><?php _e( 'in pixel', 'really-simple-image-widget' ); ?></em>
 	    </p>
 
 	    <p>
 	      <label for="<?php echo esc_attr( $this->get_field_id( 'rsiw_alt_text' ) ); ?>"><?php _e( 'Alt Text', 'really-simple-image-widget' ); ?>:</label>
 	        <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'rsiw_alt_text' ) ); ?>"
-	        name="<?php echo esc_attr( $this->get_field_name( 'rsiw_alt_text' ) ); ?>" type="text" value="<?php echo $rsiw_alt_text; ?>" />
+	        name="<?php echo esc_attr( $this->get_field_name( 'rsiw_alt_text' ) ); ?>" type="text" value="<?php echo esc_attr( $instance['rsiw_alt_text'] ); ?>" />
 	    </p>
 
 	    <p>
 	      <label for="<?php echo esc_attr( $this->get_field_id( 'rsiw_link' ) ); ?>"><?php _e( 'Link', 'really-simple-image-widget' ); ?>:</label>
 	        <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'rsiw_link' ) ); ?>"
-	        name="<?php echo esc_attr( $this->get_field_name( 'rsiw_link' ) ); ?>" type="text" value="<?php echo $rsiw_link; ?>" />
+	        name="<?php echo esc_attr( $this->get_field_name( 'rsiw_link' ) ); ?>" type="text" value="<?php echo esc_url( $instance['rsiw_link'] ); ?>" />
 	    </p>
 
 	    <p>
@@ -252,9 +243,8 @@ class Really_Simple_Image_Widget extends WP_Widget {
 
 	    <p>
 	      <label for="<?php echo esc_attr( $this->get_field_id( 'rsiw_image_caption' ) ); ?>"><?php _e( 'Caption', 'really-simple-image-widget' ); ?>:</label>
-	      <textarea class="widefat" rows="3" id="<?php echo esc_attr( $this->get_field_id( 'rsiw_image_caption' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'rsiw_image_caption' ) ); ?>"><?php echo $rsiw_image_caption; ?></textarea>
+	      <textarea class="widefat" rows="3" id="<?php echo esc_attr( $this->get_field_id( 'rsiw_image_caption' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'rsiw_image_caption' ) ); ?>"><?php echo esc_textarea( $instance['rsiw_image_caption'] ); ?></textarea>
 	    </p>
 		<?php
-
 	}
 }

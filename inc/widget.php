@@ -188,8 +188,8 @@ class Really_Simple_Image_Widget extends WP_Widget {
 
 				<?php
 		        $full_image_url = '';
-		        if ( ! empty( $rsiw_image_url ) ) {
-					$full_image_url = $rsiw_image_url;
+		        if ( ! empty( $instance['rsiw_image_url'] ) ) {
+					$full_image_url = $instance['rsiw_image_url'];
 		        }
 		        $wrap_style = '';
 		        if ( empty( $full_image_url ) ) {

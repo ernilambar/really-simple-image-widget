@@ -1,6 +1,6 @@
 === Really Simple Image Widget ===
 Contributors: rabmalin
-Donate link: http://www.nilambar.net/2014/06/really-simple-image-widget-wordpress.html
+Donate link: http://nilambar.net/2014/06/really-simple-image-widget-wordpress.html
 Tags: image widget, widget, media, media manager, sidebar, image, photo, picture, simple, image size
 Requires at least: 4.0
 Tested up to: 4.5
@@ -50,7 +50,8 @@ Nice, make a post on the [Support Forum](http://wordpress.org/support/plugin/rea
 
 == Changelog ==
 
-= 1.4 =
+= 1.4 - May 16 2016 =
+* Fix issue of image upload in Customizer
 * Minor bug fixes
 
 = 1.2 =

@@ -27,63 +27,63 @@ msgstr ""
 msgid "Really Simple Image Widget"
 msgstr ""
 
-#: inc/widget.php:153
+#: inc/widget.php:181
 msgid "Title"
 msgstr ""
 
-#: inc/widget.php:158
+#: inc/widget.php:186
 msgid "Image URL"
 msgstr ""
 
-#: inc/widget.php:160
+#: inc/widget.php:188
 msgid "Upload"
 msgstr ""
 
-#: inc/widget.php:160
+#: inc/widget.php:188
 msgid "Select Image"
 msgstr ""
 
-#: inc/widget.php:160
+#: inc/widget.php:188
 msgid "Choose Image"
 msgstr ""
 
-#: inc/widget.php:173
+#: inc/widget.php:201
 msgid "Preview"
 msgstr ""
 
-#: inc/widget.php:179
+#: inc/widget.php:207
 msgid "Image Width"
 msgstr ""
 
-#: inc/widget.php:181 inc/widget.php:187
+#: inc/widget.php:209 inc/widget.php:215
 msgid "in pixel"
 msgstr ""
 
-#: inc/widget.php:185
+#: inc/widget.php:213
 msgid "Image Height"
 msgstr ""
 
-#: inc/widget.php:191
+#: inc/widget.php:219
 msgid "Alt Text"
 msgstr ""
 
-#: inc/widget.php:197
+#: inc/widget.php:225
 msgid "Link"
 msgstr ""
 
-#: inc/widget.php:203
+#: inc/widget.php:231
 msgid "Open in New Window"
 msgstr ""
 
-#: inc/widget.php:208
+#: inc/widget.php:236
 msgid "Disable Link in Title"
 msgstr ""
 
-#: inc/widget.php:213
+#: inc/widget.php:241
 msgid "Disable Link in Caption"
 msgstr ""
 
-#: inc/widget.php:218
+#: inc/widget.php:246
 msgid "Caption"
 msgstr ""
 

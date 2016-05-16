@@ -49,6 +49,7 @@ jQuery(function($){
 
           // Copy image URL
           image_field.val(imgurl);
+          image_field.trigger('change');
           // Show in preview
           var image_preview_wrap = $this.siblings('.rsiw-preview-wrap');
           image_preview_wrap.show();

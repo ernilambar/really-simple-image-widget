@@ -25,8 +25,9 @@ class Really_Simple_Image_Widget extends WP_Widget {
 
 		// Widget options.
 		$opts = array(
-			'classname'   => 'really_simple_image_widget',
-			'description' => __( 'Easiest way to add image in your sidebar', 'really-simple-image-widget' ),
+			'classname'                   => 'really_simple_image_widget',
+			'description'                 => __( 'Easiest way to add image in your sidebar', 'really-simple-image-widget' ),
+			'customize_selective_refresh' => true,
 		);
 
 		parent::__construct( 'really-simple-image-widget', __( 'Really Simple Image Widget', 'really-simple-image-widget' ), $opts );

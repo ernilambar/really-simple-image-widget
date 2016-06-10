@@ -1,5 +1,5 @@
 /* jshint node:true */
-module.exports = function( grunt ){
+module.exports = function( grunt ) {
 	'use strict';
 
 	/**
@@ -11,27 +11,24 @@ module.exports = function( grunt ){
 		'inc/**',
 		'js/**',
 		'readme.txt',
-		'<%= pkg.main_file %>',
+		'<%= pkg.main_file %>'
 	];
-
-	/**
-	 * Let's add a couple of more files to github.
-	 * @type {Array}
-	 */
-	var git_files_list = svn_files_list.concat([
-		'Gruntfile.js',
-		'languages/**',
-		'package.json',
-		'\.gitattributes',
-		'\.gitignore',
-		'\.editorconfig',
-		'\.jshintignore',
-		'\.jshintrc',
-	]);
 
 	grunt.initConfig({
 
 		pkg: grunt.file.readJSON( 'package.json' ),
+
+		// Setting folder templates.
+		dirs: {
+			js: 'js',
+			css: 'css',
+			images: 'images'
+		},
+
+		// Other options.
+		options: {
+			text_domain: 'really-simple-image-widget'
+		},
 
 		clean: {
 			post_build: [
@@ -74,14 +71,7 @@ module.exports = function( grunt ){
 					noVerify: true,
 					noStatus: false,
 					allowEmpty: true
-				},
-			},
-			files: {
-				src: [
-				'**/*',
-				'!build/**',
-				'!node_modules/**'
-				]
+				}
 			}
 		},
 		gitpush:{
@@ -93,29 +83,13 @@ module.exports = function( grunt ){
 				}
 			}
 		},
-		"file-creator": {
-		    "folder": {
-		    	".gitattributes": function(fs, fd, done) {
-		        	var glob = grunt.file.glob;
-		        	var _ = grunt.util._;
-					fs.writeSync(fd, '# We don\'t want these files in our "plugins.zip", so tell GitHub to ignore them when the user click on Download ZIP'  + '\n');
-		        	_.each(git_files_list.diff(svn_files_list) , function(filepattern) {
-		        		glob.sync(filepattern, function(err,files) {
-			            	_.each(files, function(file) {
-			              		fs.writeSync(fd, '/' + file + ' export-ignore'  + '\n');
-			            	});
-		        		});
-		        	});
-		    	}
-		    }
-		},
 		replace: {
 			readme_txt: {
 				src: [ 'readme.txt' ],
 				overwrite: true,
 				replacements: [{
 					from: /Stable tag: (.*)/,
-					to: "Stable tag: <%= pkg.version %>"
+					to: 'Stable tag: <%= pkg.version %>'
 				}]
 			},
 			'plugin_file': {
@@ -123,10 +97,10 @@ module.exports = function( grunt ){
 				overwrite: true,
 				replacements: [{
 					from: /\*\s*Version:\s*(.*)/,
-					to: "* Version: <%= pkg.version %>"
+					to: '* Version: <%= pkg.version %>'
 				}]
 			}
-		}, // replace
+		},
 		svn_export: {
 			dev: {
 				options:{
@@ -137,35 +111,23 @@ module.exports = function( grunt ){
 		},
 		push_svn:{
 			options: {
-				username: 'rabmalin',
-				password: 'hellosindhu2041',
+				// Put username/password here.
 				remove: true
 			},
 			main: {
 				src: 'build/<%= pkg.name %>',
 				dest: 'https://plugins.svn.wordpress.org/<%= pkg.name %>',
-				tmp: 'build/make_svn',
+				tmp: 'build/make_svn'
 			}
 		},
-		// Setting folder templates.
-		dirs: {
-			js: 'js',
-			css: 'css',
-			images: 'images'
-		},
 
-		// Other options.
-		options: {
-			text_domain: 'really-simple-image-widget'
-		},
-
-		// Generate POT files.
+		// Generate POT.
 		makepot: {
 			target: {
 				options: {
 					type: 'wp-plugin',
 					domainPath: 'languages',
-					exclude: ['deploy/.*','node_modules/.*'],
+					exclude: ['build/.*', 'deploy/.*', 'node_modules/.*'],
 					updateTimestamp: false,
 					potHeaders: {
 						'report-msgid-bugs-to': '',
@@ -180,7 +142,7 @@ module.exports = function( grunt ){
 			}
 		},
 
-		// Check textdomain errors.
+		// Check textdomain.
 		checktextdomain: {
 			options: {
 				text_domain: '<%= options.text_domain %>',
@@ -205,7 +167,8 @@ module.exports = function( grunt ){
 				src: [
 					'**/*.php',
 					'!node_modules/**',
-					'!deploy/**'
+					'!deploy/**',
+					'!build/**'
 				],
 				expand: true
 			}
@@ -224,6 +187,7 @@ module.exports = function( grunt ){
 					'**/*.php',
 					'!node_modules/**',
 					'!deploy/**',
+					'!build/**',
 					'!tests/**'
 					]
 				}
@@ -244,9 +208,9 @@ module.exports = function( grunt ){
 		},
 		// Check JS.
 		jshint: {
-			options: grunt.file.readJSON('.jshintrc'),
+			options: grunt.file.readJSON( '.jshintrc' ),
 			all: [
-				'Gruntfile.js',
+				'<%= pkg.main %>',
 				'js/*.js',
 				'!js/*.min.js'
 			]
@@ -277,12 +241,10 @@ module.exports = function( grunt ){
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 	grunt.loadNpmTasks( 'grunt-contrib-copy' );
 	grunt.loadNpmTasks( 'grunt-contrib-clean' );
-
 	grunt.loadNpmTasks( 'grunt-git' );
 	grunt.loadNpmTasks( 'grunt-text-replace' );
 	grunt.loadNpmTasks( 'grunt-svn-export' );
 	grunt.loadNpmTasks( 'grunt-push-svn' );
-	grunt.loadNpmTasks( 'grunt-file-creator' );
 
 	// Register tasks.
 	grunt.registerTask( 'default', [] );
@@ -310,19 +272,12 @@ module.exports = function( grunt ){
 	]);
 
 	grunt.registerTask( 'version_number', [ 'replace:readme_txt', 'replace:plugin_file' ] );
-	grunt.registerTask( 'pre_vcs', [ 'version_number', 'makepot', 'addtextdomain' ] );
+	grunt.registerTask( 'pre_vcs', [ 'version_number', 'textdomain' ] );
 	grunt.registerTask( 'gitattributes', [ 'file-creator' ] );
 
-	grunt.registerTask( 'do_svn', [ 'svn_export', 'clean:remove_trunk', 'copy:svn_trunk', 'copy:svn_tag', 'push_svn' ] );
+	grunt.registerTask( 'do_svn_dry', [ 'svn_export', 'clean:remove_trunk', 'copy:svn_trunk', 'copy:svn_tag' ] );
+	grunt.registerTask( 'do_svn_run', [ 'svn_export', 'clean:remove_trunk', 'copy:svn_trunk', 'copy:svn_tag', 'push_svn' ] );
 	grunt.registerTask( 'do_git', [  'gitcommit', 'gittag', 'gitpush' ] );
-	grunt.registerTask( 'release', [ 'pre_vcs', 'do_svn' ] );
+	grunt.registerTask( 'release', [ 'pre_vcs', 'do_svn_run' ] );
 	grunt.registerTask( 'post_release', [ 'do_git', 'clean:post_build' ] );
-};
-
-/**
- * Helper
- */
-// from http://stackoverflow.com/a/4026828/1434155
-Array.prototype.diff = function(a) {
-    return this.filter(function(i) {return a.indexOf(i) < 0;});
 };

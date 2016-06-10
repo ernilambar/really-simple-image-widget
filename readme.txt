@@ -46,7 +46,6 @@ Nice, make a post on the [Support Forum](http://wordpress.org/support/plugin/rea
 
 1. Adding widget in sidebar
 
-
 == Changelog ==
 
 = 1.4.0 - Jun 10 2016 =

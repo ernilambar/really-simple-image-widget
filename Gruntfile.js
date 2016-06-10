@@ -29,12 +29,15 @@ module.exports = function( grunt ) {
 			text_domain: 'really-simple-image-widget'
 		},
 
+		// Copy folders.
 		clean: {
 			post_build: ['build'],
 			remove_trunk:['build/<%= pkg.name %>/trunk/'],
 			deploy: ['deploy'],
 			build: ['build']
 		},
+
+		// Copy files.
 		copy: {
 			svn_trunk: {
 				options: {
@@ -59,6 +62,8 @@ module.exports = function( grunt ) {
 				dot: true
 			}
 		},
+
+		// Replace strings.
 		replace: {
 			readme_txt: {
 				src: [ 'readme.txt' ],
@@ -77,6 +82,8 @@ module.exports = function( grunt ) {
 				}]
 			}
 		},
+
+		// Fetch from SVN.
 		svn_export: {
 			dev: {
 				options:{
@@ -85,6 +92,8 @@ module.exports = function( grunt ) {
 				}
 			}
 		},
+
+		// Push to SVN.
 		push_svn:{
 			options: {
 				// Put username/password here.
@@ -210,16 +219,16 @@ module.exports = function( grunt ) {
 	});
 
 	// Load NPM tasks to be used here.
-	grunt.loadNpmTasks( 'grunt-wp-i18n' );
 	grunt.loadNpmTasks( 'grunt-checktextdomain' );
+	grunt.loadNpmTasks( 'grunt-contrib-clean' );
+	grunt.loadNpmTasks( 'grunt-contrib-copy' );
 	grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
 	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
-	grunt.loadNpmTasks( 'grunt-contrib-copy' );
-	grunt.loadNpmTasks( 'grunt-contrib-clean' );
-	grunt.loadNpmTasks( 'grunt-text-replace' );
-	grunt.loadNpmTasks( 'grunt-svn-export' );
 	grunt.loadNpmTasks( 'grunt-push-svn' );
+	grunt.loadNpmTasks( 'grunt-svn-export' );
+	grunt.loadNpmTasks( 'grunt-text-replace' );
+	grunt.loadNpmTasks( 'grunt-wp-i18n' );
 
 	// Register tasks.
 	grunt.registerTask( 'default', [] );
@@ -246,11 +255,39 @@ module.exports = function( grunt ) {
 		'copy:deploy'
 	]);
 
-	grunt.registerTask( 'version_number', [ 'replace:readme_txt', 'replace:plugin_file' ] );
-	grunt.registerTask( 'pre_vcs', [ 'version_number', 'textdomain' ] );
+	grunt.registerTask( 'version', [
+		'replace:readme_txt',
+		'replace:plugin_file'
+	] );
 
-	grunt.registerTask( 'do_svn_dry', [ 'clean:build', 'svn_export', 'clean:remove_trunk', 'copy:svn_trunk', 'copy:svn_tag' ] );
-	grunt.registerTask( 'do_svn_run', [ 'clean:build', 'svn_export', 'clean:remove_trunk', 'copy:svn_trunk', 'copy:svn_tag', 'push_svn' ] );
-	grunt.registerTask( 'release', [ 'pre_vcs', 'do_svn_run' ] );
-	grunt.registerTask( 'post_release', [ 'clean:post_build' ] );
+	grunt.registerTask( 'prerelease', [
+		'version',
+		'textdomain'
+	] );
+
+	grunt.registerTask( 'do_svn_dry', [
+		'clean:build',
+		'svn_export',
+		'clean:remove_trunk',
+		'copy:svn_trunk',
+		'copy:svn_tag'
+	] );
+
+	grunt.registerTask( 'do_svn_run', [
+		'clean:build',
+		'svn_export',
+		'clean:remove_trunk',
+		'copy:svn_trunk',
+		'copy:svn_tag',
+		'push_svn'
+	] );
+
+	grunt.registerTask( 'release', [
+		'prerelease',
+		'do_svn_run'
+	] );
+
+	grunt.registerTask( 'post_release', [
+		'clean:post_build'
+	] );
 };

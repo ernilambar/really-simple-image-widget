@@ -1,5 +1,5 @@
 # Copyright (C) 2016 Nilambar Sharma
-# This file is distributed under the same license as the Really Simple Image Widget package.
+# This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
 "Project-Id-Version: Really Simple Image Widget 1.4.0\n"

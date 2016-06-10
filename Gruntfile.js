@@ -77,7 +77,11 @@ module.exports = function( grunt ){
 				},
 			},
 			files: {
-				src: [ git_files_list ]
+				src: [
+				'**/*',
+				'!build/**',
+				'!node_modules/**'
+				]
 			}
 		},
 		gitpush:{

@@ -3,10 +3,9 @@ module.exports = function( grunt ) {
 	'use strict';
 
 	/**
-	 * FIles added to WordPress SVN, don't inlucde 'assets/**' here.
-	 * @type {Array}
+	 * Deploy files list.
 	 */
-	var svn_files_list = [
+	var deploy_files_list = [
 		'css/**',
 		'inc/**',
 		'js/**',
@@ -31,12 +30,10 @@ module.exports = function( grunt ) {
 		},
 
 		clean: {
-			post_build: [
-				'build'
-			],
-			remove_trunk:[
-				'build/<%= pkg.name %>/trunk/'
-			]
+			post_build: ['build'],
+			remove_trunk:['build/<%= pkg.name %>/trunk/'],
+			deploy: ['deploy'],
+			build: ['build']
 		},
 		copy: {
 			svn_trunk: {
@@ -44,7 +41,7 @@ module.exports = function( grunt ) {
 					mode: true
 				},
 				expand: true,
-				src: svn_files_list,
+				src: deploy_files_list,
 				dest: 'build/<%= pkg.name %>/trunk/'
 			},
 			svn_tag: {
@@ -52,8 +49,14 @@ module.exports = function( grunt ) {
 					mode: true
 				},
 				expand: true,
-				src: svn_files_list,
+				src: deploy_files_list,
 				dest: 'build/<%= pkg.name %>/tags/<%= pkg.version %>/'
+			},
+			deploy: {
+				src: deploy_files_list,
+				dest: 'deploy/<%= pkg.name %>',
+				expand: true,
+				dot: true
 			}
 		},
 		replace: {
@@ -246,8 +249,8 @@ module.exports = function( grunt ) {
 	grunt.registerTask( 'version_number', [ 'replace:readme_txt', 'replace:plugin_file' ] );
 	grunt.registerTask( 'pre_vcs', [ 'version_number', 'textdomain' ] );
 
-	grunt.registerTask( 'do_svn_dry', [ 'svn_export', 'clean:remove_trunk', 'copy:svn_trunk', 'copy:svn_tag' ] );
-	grunt.registerTask( 'do_svn_run', [ 'svn_export', 'clean:remove_trunk', 'copy:svn_trunk', 'copy:svn_tag', 'push_svn' ] );
+	grunt.registerTask( 'do_svn_dry', [ 'clean:build', 'svn_export', 'clean:remove_trunk', 'copy:svn_trunk', 'copy:svn_tag' ] );
+	grunt.registerTask( 'do_svn_run', [ 'clean:build', 'svn_export', 'clean:remove_trunk', 'copy:svn_trunk', 'copy:svn_tag', 'push_svn' ] );
 	grunt.registerTask( 'release', [ 'pre_vcs', 'do_svn_run' ] );
 	grunt.registerTask( 'post_release', [ 'clean:post_build' ] );
 };

@@ -154,19 +154,7 @@ module.exports = function( grunt ){
 					ext: '.min.js'
 				}]
 			}
-		},
-		rt_wp_deploy: {
-			app: {
-				options: {
-					svnUrl: 'https://plugins.svn.wordpress.org/really-simple-image-widget/',
-					svnDir: 'svn',
-					svnUsername: 'rabmalin',
-					deployDir: 'deploy',
-					version: '<%= pkg.version %>',
-				}
-			}
 		}
-
 	});
 
 	// Load NPM tasks to be used here.
@@ -201,10 +189,6 @@ module.exports = function( grunt ){
 	grunt.registerTask( 'deploy', [
 		'clean:deploy',
 		'copy:deploy'
-	]);
-
-	grunt.registerTask( 'wpdeploy', [
-		'rt_wp_deploy'
 	]);
 
 };

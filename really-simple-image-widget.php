@@ -5,7 +5,7 @@
  * Description: Easiest way to add image in your sidebar
  * Author: Nilambar Sharma
  * Author URI: http://nilambar.net
- * Version: 1.4
+ * Version: 1.4.0
  * Text Domain: really-simple-image-widget
  *
  * @package Really_Simple_Image_Widget
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define.
-define( 'REALLY_SIMPLE_IMAGE_WIDGET_VERSION', '1.4' );
+define( 'REALLY_SIMPLE_IMAGE_WIDGET_VERSION', '1.4.0' );
 define( 'REALLY_SIMPLE_IMAGE_WIDGET_SLUG', 'really-simple-image-widget' );
 define( 'REALLY_SIMPLE_IMAGE_WIDGET_BASENAME', basename( dirname( __FILE__ ) ) );
 define( 'REALLY_SIMPLE_IMAGE_WIDGET_BASE_FILE', plugin_basename( __FILE__ ) );
@@ -68,10 +68,10 @@ function really_simple_image_widget_scripts( $hook ) {
 
 	$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-	wp_enqueue_style( 'really-simple-image-widget-admin', REALLY_SIMPLE_IMAGE_WIDGET_URL . '/css/admin' . $min . '.css', array(), '1.4' );
+	wp_enqueue_style( 'really-simple-image-widget-admin', REALLY_SIMPLE_IMAGE_WIDGET_URL . '/css/admin' . $min . '.css', array(), '1.4.0' );
 
 	wp_enqueue_media();
-	wp_enqueue_script( 'really-simple-image-widget-admin', REALLY_SIMPLE_IMAGE_WIDGET_URL . '/js/admin' . $min . '.js', array( 'jquery' ), '1.4' );
+	wp_enqueue_script( 'really-simple-image-widget-admin', REALLY_SIMPLE_IMAGE_WIDGET_URL . '/js/admin' . $min . '.js', array( 'jquery' ), '1.4.0' );
 
 }
 add_action( 'admin_enqueue_scripts', 'really_simple_image_widget_scripts' );

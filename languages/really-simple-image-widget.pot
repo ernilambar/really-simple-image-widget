@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Really Simple Image Widget package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Really Simple Image Widget 1.4\n"
+"Project-Id-Version: Really Simple Image Widget 1.4.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-12 10:04:40+00:00\n"
 "MIME-Version: 1.0\n"

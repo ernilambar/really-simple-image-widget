@@ -36,6 +36,9 @@ module.exports = function( grunt ){
 		clean: {
 			post_build: [
 				'build'
+			],
+			remove_trunk:[
+				'build/<%= pkg.name %>/trunk/'
 			]
 		},
 		copy: {
@@ -306,7 +309,7 @@ module.exports = function( grunt ){
 	grunt.registerTask( 'pre_vcs', [ 'version_number', 'makepot', 'addtextdomain' ] );
 	grunt.registerTask( 'gitattributes', [ 'file-creator' ] );
 
-	grunt.registerTask( 'do_svn', [ 'svn_export', 'copy:svn_trunk', 'copy:svn_tag', 'push_svn' ] );
+	grunt.registerTask( 'do_svn', [ 'svn_export', 'clean:remove_trunk', 'copy:svn_trunk', 'copy:svn_tag', 'push_svn' ] );
 	grunt.registerTask( 'do_git', [  'gitcommit', 'gittag', 'gitpush' ] );
 	grunt.registerTask( 'release', [ 'pre_vcs', 'do_svn' ] );
 	grunt.registerTask( 'post_release', [ 'do_git', 'clean:post_build' ] );

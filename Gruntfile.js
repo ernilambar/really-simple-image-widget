@@ -56,33 +56,6 @@ module.exports = function( grunt ) {
 				dest: 'build/<%= pkg.name %>/tags/<%= pkg.version %>/'
 			}
 		},
-		gittag: {
-			addtag: {
-				options: {
-					tag: 'v<%= pkg.version %>',
-					message: 'Version <%= pkg.version %>'
-				}
-			}
-		},
-		gitcommit: {
-			commit: {
-				options: {
-					message: 'Version <%= pkg.version %>',
-					noVerify: true,
-					noStatus: false,
-					allowEmpty: true
-				}
-			}
-		},
-		gitpush:{
-			push: {
-				options: {
-					tags: true,
-					remote: 'origin',
-					branch: 'master'
-				}
-			}
-		},
 		replace: {
 			readme_txt: {
 				src: [ 'readme.txt' ],
@@ -241,7 +214,6 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 	grunt.loadNpmTasks( 'grunt-contrib-copy' );
 	grunt.loadNpmTasks( 'grunt-contrib-clean' );
-	grunt.loadNpmTasks( 'grunt-git' );
 	grunt.loadNpmTasks( 'grunt-text-replace' );
 	grunt.loadNpmTasks( 'grunt-svn-export' );
 	grunt.loadNpmTasks( 'grunt-push-svn' );
@@ -273,11 +245,9 @@ module.exports = function( grunt ) {
 
 	grunt.registerTask( 'version_number', [ 'replace:readme_txt', 'replace:plugin_file' ] );
 	grunt.registerTask( 'pre_vcs', [ 'version_number', 'textdomain' ] );
-	grunt.registerTask( 'gitattributes', [ 'file-creator' ] );
 
 	grunt.registerTask( 'do_svn_dry', [ 'svn_export', 'clean:remove_trunk', 'copy:svn_trunk', 'copy:svn_tag' ] );
 	grunt.registerTask( 'do_svn_run', [ 'svn_export', 'clean:remove_trunk', 'copy:svn_trunk', 'copy:svn_tag', 'push_svn' ] );
-	grunt.registerTask( 'do_git', [  'gitcommit', 'gittag', 'gitpush' ] );
 	grunt.registerTask( 'release', [ 'pre_vcs', 'do_svn_run' ] );
-	grunt.registerTask( 'post_release', [ 'do_git', 'clean:post_build' ] );
+	grunt.registerTask( 'post_release', [ 'clean:post_build' ] );
 };

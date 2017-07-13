@@ -1,7 +1,7 @@
 {
   "name": "really-simple-image-widget",
   "title": "Really Simple Image Widget",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "license": "GPL-2.0+",
   "main": "Gruntfile.js",
   "main_file": "really-simple-image-widget.php",

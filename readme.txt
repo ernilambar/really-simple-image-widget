@@ -3,14 +3,16 @@ Contributors: rabmalin
 Donate link: http://nilambar.net/2014/06/really-simple-image-widget-wordpress.html
 Tags: image widget, widget, media, media manager, sidebar, image, photo, picture, simple, image size
 Requires at least: 4.0
-Tested up to: 4.5
-Stable tag: 1.4.0
+Tested up to: 4.8
+Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Easiest way to add image in your sidebar
 
 == Description ==
+
+<h3>This plugin is no longer maintained. From WordPress 4.8, Image widget is available in core. This plugin is being abandoned in favor that default widget.</h3>
 
 <strong>Really Simple Image Widget</strong> is the easiest way to add image in your sidebar. Choose image from your Media, save it and done. Really simple, isn't it?
 
@@ -47,6 +49,9 @@ Nice, make a post on the [Support Forum](http://wordpress.org/support/plugin/rea
 1. Adding widget in sidebar
 
 == Changelog ==
+
+= 1.5.0 - Jul 12 2017 =
+* Minor bug fixes
 
 = 1.4.0 - Jun 10 2016 =
 * Fix issue of image upload in Customizer
